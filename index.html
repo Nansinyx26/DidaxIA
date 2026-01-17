@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DidaxIA AI</title>
+    <link rel="icon" href="favicon.png" type="image/png">
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600&family=Share+Tech+Mono&display=swap"
+        rel="stylesheet">
+    <!-- Using Phosphor Icons for a clean, modern look -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <link rel="icon" type="image/png" href="logo.png">
+</head>
+
+<body>
+    <div class="app-container">
+        <!-- Animated Background Layers -->
+        <div class="parallax-bg">
+            <div class="animated-orb orb-1"></div>
+            <div class="animated-orb orb-2"></div>
+            <div class="animated-orb orb-3"></div>
+            <div class="animated-orb orb-4"></div>
+            <div class="bg-logo-watermark"></div>
+        </div>
+
+        <!-- Header -->
+        <header class="glass-header">
+            <div class="logo-area">
+                <button id="sidebar-toggle" class="icon-btn" title="Histórico">
+                    <i class="ph ph-list"></i>
+                </button>
+                <div class="logo-icon">
+                    <img src="logo.png" alt="DidaxIA Logo" class="logo-img">
+                </div>
+            </div>
+            <div class="header-controls">
+                <button id="settings-btn" class="icon-btn" title="Configurações">
+                    <i class="ph ph-gear"></i>
+                </button>
+            </div>
+        </header>
+
+        <div class="main-layout">
+            <!-- Sidebar -->
+            <aside id="chat-sidebar" class="sidebar hidden-mobile">
+                <div class="sidebar-header">
+                    <h3>Histórico</h3>
+                    <button id="new-chat-btn" class="neon-btn small">
+                        <i class="ph ph-plus"></i> <span class="btn-text">Novo</span>
+                    </button>
+                </div>
+                <div id="history-list" class="history-list">
+                    <!-- History items will be injected here -->
+                    <div class="history-placeholder">Nenhuma conversa salva</div>
+                </div>
+
+                <div class="sidebar-footer">
+                    <div class="sidebar-menu-items">
+                        <div class="menu-item">
+                            <i class="ph ph-user-circle"></i>
+                            <span>Minha Conta</span>
+                        </div>
+                        <div class="menu-item">
+                            <i class="ph ph-info"></i>
+                            <span>Sobre o DidaxIA</span>
+                        </div>
+                        <div class="menu-item">
+                            <i class="ph ph-question"></i>
+                            <span>Ajuda</span>
+                        </div>
+                    </div>
+                </div>
+            </aside>
+
+            <!-- Main Content Wrapper -->
+            <div class="content-wrapper">
+                <!-- Mode Tabs -->
+                <div class="mode-tabs">
+                    <button class="tab-btn active" data-mode="livre">
+                        <i class="ph ph-magnifying-glass"></i> Pesquisa Livre
+                    </button>
+                    <button class="tab-btn" data-mode="apostila">
+                        <i class="ph ph-book-open-text"></i> Foco Apostila
+                    </button>
+                </div>
+
+                <!-- Main Chat Area -->
+                <main class="chat-area" id="chat-container">
+                    <div class="welcome-message">
+                        <h2>Olá!</h2>
+                        <p>Como posso te ajudar hoje?</p>
+                        <div class="model-badges">
+                            <span class="badge gemini active"
+                                style="background: linear-gradient(135deg, #4285f4, #d96570, #f4b400); color: white; border: none;">Gemini
+                                2.5 Flash</span>
+                        </div>
+                    </div>
+                    <!-- Messages will be injected here -->
+                </main>
+            </div>
+        </div>
+
+        <!-- Control Bar & Input -->
+        <footer class="input-area">
+            <div class="utility-bar">
+                <div class="model-selector">
+                    <!-- Toggle Removed -->
+                    <span id="current-model-name" style="color: var(--accent-glow); font-weight: bold;">Gemini 2.5
+                        Flash</span>
+                </div>
+                <div class="maker-tools">
+                    <div class="status-indicator" style="color: var(--accent-glow);">
+                        <i class="ph ph-check-circle"></i> Apostila Integrada
+                    </div>
+                </div>
+            </div>
+
+            <div class="message-box">
+                <textarea id="user-input" placeholder="Digite sua pergunta ou comando..." rows="1"></textarea>
+                <button id="voice-btn" class="icon-btn" title="Falar">
+                    <i class="ph ph-microphone"></i>
+                </button>
+                <button id="send-btn" class="send-btn">
+                    <i class="ph ph-paper-plane-right"></i>
+                </button>
+            </div>
+            <div id="recording-feedback" class="recording-feedback hidden">
+                <div class="timer">00:00</div>
+                <div class="pulse-ring"></div>
+            </div>
+
+            <!-- MARCA D'ÁGUA NO RODAPÉ -->
+            <div style="display: flex; justify-content: center; width: 100%; margin-top: 15px; margin-bottom: 5px;">
+                <a href="https://www.linkedin.com/in/renan-de-oliveira-farias-66a9b412b/" target="_blank"
+                    rel="noopener noreferrer" class="nandev-watermark">
+                    <div class="holographic-overlay"></div>
+                    <div class="geometric-particles" id="particles">
+                        <div class="particle"></div>
+                        <div class="particle"></div>
+                        <div class="particle"></div>
+                        <div class="particle"></div>
+                        <div class="particle"></div>
+                    </div>
+
+                    <div class="cube-container">
+                        <div class="wireframe-cube">
+                            <div class="cube-face front">
+                                <div class="wireframe-lines">
+                                    <div class="inner-line horizontal-line line-1"></div>
+                                    <div class="inner-line horizontal-line line-2"></div>
+                                    <div class="inner-line horizontal-line line-3"></div>
+                                </div>
+                            </div>
+                            <div class="cube-face back">
+                                <div class="wireframe-lines">
+                                    <div class="inner-line vertical-line v-line-1"></div>
+                                    <div class="inner-line vertical-line v-line-2"></div>
+                                    <div class="inner-line vertical-line v-line-3"></div>
+                                </div>
+                            </div>
+                            <div class="cube-face right">
+                                <div class="wireframe-lines">
+                                    <div class="inner-line horizontal-line line-1"></div>
+                                    <div class="inner-line horizontal-line line-3"></div>
+                                </div>
+                            </div>
+                            <div class="cube-face left">
+                                <div class="wireframe-lines">
+                                    <div class="inner-line vertical-line v-line-1"></div>
+                                    <div class="inner-line vertical-line v-line-3"></div>
+                                </div>
+                            </div>
+                            <div class="cube-face top">
+                                <div class="wireframe-lines">
+                                    <div class="inner-line horizontal-line line-2"></div>
+                                </div>
+                            </div>
+                            <div class="cube-face bottom">
+                                <div class="wireframe-lines">
+                                    <div class="inner-line vertical-line v-line-2"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <span class="watermark-text">
+                        Desenvolvido por <span class="watermark-highlight">Nan</span>dev
+                    </span>
+                    <span class="code-symbol">&lt;/&gt;</span>
+                </a>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Settings Modal -->
+    <div id="settings-modal" class="modal hidden">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Configurações de API</h3>
+                <button id="close-settings" class="close-btn"><i class="ph ph-x"></i></button>
+            </div>
+            <div class="modal-body">
+                <div class="api-section"><!-- API Key message removed --></div>
+
+                <div class="input-group">
+                    <label style="display: flex; align-items: center; justify-content: space-between;">
+                        <span><i class="ph ph-translate"></i> Idioma da Interface</span>
+                        <div class="interface-language-toggle">
+                            <button class="lang-btn active" data-lang="pt">🇧🇷 PT</button>
+                            <button class="lang-btn" data-lang="en">🇺🇸 EN</button>
+                        </div>
+                    </label>
+                </div>
+
+                <div class="input-group">
+                    <label style="display: flex; align-items: center; justify-content: space-between;">
+                        <span><i class="ph ph-speaker-high"></i> Voz do Assistente</span>
+                        <div class="voice-language-toggle">
+                            <span style="font-size: 0.85rem; color: var(--text-secondary); margin-right: 0.5rem;">Idioma
+                                da Voz:</span>
+                            <button class="voice-lang-btn active" data-voice-lang="pt">
+                                🇧🇷 PT
+                            </button>
+                            <button class="voice-lang-btn" data-voice-lang="en">
+                                🇺🇸 EN
+                            </button>
+                        </div>
+                    </label>
+                    <div id="voice-cards-container" class="voice-cards-container">
+                        <!-- Voice cards injected by JS -->
+                    </div>
+                </div>
+
+                <div class="separator" style="margin: 1rem 0; border-top: 1px solid rgba(255,255,255,0.1);"></div>
+
+                <div class="input-group">
+                    <label><i class="ph ph-thermometer"></i> Criatividade (Temperatura)</label>
+                    <div class="temp-slider-container">
+                        <span class="temp-label temp-label-left">Preciso</span>
+                        <input type="range" id="temp-slider" min="0" max="1" step="0.1" value="0.7">
+                        <span class="temp-label temp-label-right">Criativo</span>
+                    </div>
+                </div>
+
+                <div class="input-group">
+                    <label><i class="ph ph-text-aa"></i> Tamanho da Fonte</label>
+                    <div class="font-controls">
+                        <button class="font-btn" onclick="setFontSize('small')">
+                            <i class="ph ph-text-t"></i> A-
+                        </button>
+                        <button class="font-btn" onclick="setFontSize('medium')">
+                            <i class="ph ph-text-t"></i> A
+                        </button>
+                        <button class="font-btn" onclick="setFontSize('large')">
+                            <i class="ph ph-text-t"></i> A+
+                        </button>
+                    </div>
+                </div>
+
+                <div class="input-group">
+                    <label for="custom-prompt">Prompt do Sistema (Opcional)</label>
+                    <textarea id="custom-prompt" rows="3" placeholder="Personalize a personalidade do DidaxIA..."
+                        style="width:100%; background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.1); color:white; border-radius:8px; padding:0.5rem;"></textarea>
+                </div>
+
+                <div class="settings-actions" style="margin-top: 1rem; display: flex; gap: 1rem; flex-wrap: wrap;">
+                    <button id="save-keys" class="neon-btn" style="flex: 1;">Salvar Tudo</button>
+                    <button id="download-chat" class="neon-btn"
+                        style="border-color: var(--accent-yellow); color: var(--accent-yellow); flex: 1;">
+                        <i class="ph ph-download"></i> Baixar Chat
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Account Modal -->
+    <div id="account-modal" class="modal hidden">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Minha Conta</h3>
+                <button class="close-btn close-modal-btn"><i class="ph ph-x"></i></button>
+            </div>
+            <div class="modal-body text-center">
+                <div class="profile-avatar">
+                    <i class="ph ph-user-circle"></i>
+                </div>
+                <h4 style="margin: 1rem 0 0.5rem; color: #fff;">Usuário DidaxIA</h4>
+                <p style="color: var(--text-secondary); margin-bottom: 2rem;">usuario@exemplo.com</p>
+
+                <div class="account-stats">
+                    <div class="stat-item">
+                        <span class="stat-value">Free</span>
+                        <span class="stat-label">Plano Atual</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-value">∞</span>
+                        <span class="stat-label">Créditos</span>
+                    </div>
+                </div>
+
+                <button class="neon-btn full-width" style="margin-top: 2rem;">Gerenciar Assinatura</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- About Modal -->
+    <div id="about-modal" class="modal hidden">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Sobre o DidaxIA</h3>
+                <button class="close-btn close-modal-btn"><i class="ph ph-x"></i></button>
+            </div>
+            <div class="modal-body">
+                <div class="about-logo">
+                    <i class="ph ph-plant"></i>
+                </div>
+                <div class="text-center" style="margin-bottom: 2rem;">
+                    <h4 style="color: #fff; font-size: 1.5rem;">DidaxIA IA</h4>
+                    <p style="color: var(--accent-purple);">Versão 2.5.0 (Beta)</p>
+                </div>
+                <p style="color: var(--text-secondary); line-height: 1.6; margin-bottom: 1rem;">
+                    O DidaxIA é um assistente de inteligência artificial avançado, projetado para potenciar sua
+                    criatividade e produtividade.
+                </p>
+                <div class="tech-stack-info">
+                    <p>Powered by:</p>
+                    <div class="stack-icons">
+                        <span title="Google AI">Gemini 2.5</span>
+                        <span title="ElevenLabs">11Labs</span>
+                    </div>
+                </div>
+                <div class="text-center" style="margin-top: 2rem; font-size: 0.8rem; color: var(--text-secondary);">
+                    Desenvolvido com ❤️ por Nandev
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Help Modal -->
+    <div id="help-modal" class="modal hidden">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Central de Ajuda</h3>
+                <button class="close-btn close-modal-btn"><i class="ph ph-x"></i></button>
+            </div>
+            <div class="modal-body">
+                <div class="faq-item">
+                    <h5><i class="ph ph-magic-wand"></i> Como mudar o modelo?</h5>
+                    <p>O DidaxIA utiliza o modelo Gemini da Google para fornecer respostas inteligentes.</p>
+                </div>
+                <div class="faq-item">
+                    <h5><i class="ph ph-file-text"></i> Como usar a apostila?</h5>
+                    <p>Selecione a aba "Foco Apostila" para que a IA responda baseada apenas no material carregado.</p>
+                </div>
+                <div class="faq-item">
+                    <h5><i class="ph ph-microphone"></i> O áudio não funciona?</h5>
+                    <p>Verifique se sua chave da ElevenLabs está configurada e se o volume do dispositivo está ligado.
+                    </p>
+                </div>
+                <div class="contact-support" style="margin-top: 2rem; text-align: center;">
+                    <button class="neon-btn small"><i class="ph ph-envelope"></i> Contatar Suporte</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="apostila.js"></script>
+    <script src="script.js"></script>
+</body>
+
+</html>
